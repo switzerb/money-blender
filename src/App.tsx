@@ -1,15 +1,6 @@
 import React from 'react';
-import AuthProvider from './providers/AuthProvider';
 import './App.css';
+import Routes from './Routes';
 
-const App: React.FC = () => {
-    return (
-        <AuthProvider>
-            <>
-                <p>Hello World</p>
-            </>
-        </AuthProvider>
-    );
-};
-
+export const App: React.FC = () => <Routes />;
 export default App;

@@ -12,7 +12,7 @@ type ProviderProps = {
     children: React.ReactNode;
 };
 
-const AuthContext = React.createContext<ContextProps | null>(null);
+const AuthContext = React.createContext<Partial<ContextProps>>({});
 
 const AuthProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
     const [user, setUser] = useState(null as firebase.User | null);
@@ -37,4 +37,4 @@ const AuthProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
     );
 };
 
-export default AuthProvider;
+export { AuthProvider, AuthContext };
