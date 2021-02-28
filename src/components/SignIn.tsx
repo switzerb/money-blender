@@ -3,6 +3,7 @@ import { Avatar, Box, Button, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
 import { firebase } from '../providers/firebase';
+import AppHeader from './AppHeader';
 
 const signInWithGoogle = () => {
     return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -42,34 +43,38 @@ const SignIn: FC = () => {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.root} elevation={3}>
-            <Avatar className={classes.avatar}>
-                <LockOutlined />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Sign in
-            </Typography>
-            <Typography className={classes.text} variant="h3">
-                Welcome to Bender!
-            </Typography>
-            <Typography variant="h6">
-                To log in, you will need to use a Google account. This is software made for kids so you can track what
-                you earn and what you spend.
-            </Typography>
-            <Button
-                className={classes.button}
-                color="secondary"
-                fullWidth
-                variant="contained"
-                size="large"
-                onClick={() => signInWithGoogle()}
-            >
-                Sign In
-            </Button>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Paper>
+        <>
+            <AppHeader />
+            <Paper className={classes.root} elevation={3}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlined />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Typography className={classes.text} variant="h3">
+                    Welcome to Bender!
+                </Typography>
+                <Typography variant="h6">
+                    To log in, you will need to use a Google account. This is software made for kids so you can track
+                    what you earn and what you spend.
+                </Typography>
+                <Button
+                    className={classes.button}
+                    color="secondary"
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    onClick={() => signInWithGoogle()}
+                >
+                    Sign In
+                </Button>
+                <Box mt={8}>
+                    <Copyright />
+                </Box>
+                {}
+            </Paper>
+        </>
     );
 };
 

@@ -6,6 +6,7 @@ module.exports = {
     },
     globals: {
         'jest/globals': true,
+        JSX: true,
     },
     extends: [
         'plugin:react/recommended',

@@ -1,16 +1,16 @@
 import React, { FC, useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import SignIn from './components/SignIn';
 import { AuthContext } from './providers/AuthProvider';
 
 type PrivateRouteProps = {
-    path?: string;
+    path: string;
     exact?: boolean;
-    component: React.ComponentType<any>;
+    component: React.FC<RouteComponentProps>;
 };
 
-const PrivateRoute: FC<PrivateRouteProps> = ({ component: RouteComponent, ...rest }: PrivateRouteProps) => {
+const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps): JSX.Element => {
     const { authenticated, loadingAuthState } = useContext(AuthContext);
     if (loadingAuthState) {
         return (
@@ -22,11 +22,11 @@ const PrivateRoute: FC<PrivateRouteProps> = ({ component: RouteComponent, ...res
     return (
         <Route
             {...rest}
-            render={(routeProps) =>
+            render={(props: RouteComponentProps) =>
                 authenticated ? (
-                    <RouteComponent {...routeProps} />
+                    <Component {...props} />
                 ) : (
-                    <Redirect to={{ pathname: '/auth/login', state: { prevPath: rest.path } }} />
+                    <Redirect to={{ pathname: '/sign-in', state: { prevPath: rest.path } }} />
                 )
             }
         />
@@ -55,7 +55,7 @@ const Routes: FC = () => {
             <Switch>
                 <PrivateRoute exact path="/dashboard" component={AppRoutes} />
                 <Route path="/sign-in" component={AuthRoutes} />
-                <Redirect to="/sign-in" from="/" />
+                <Redirect to="/dashboard" from="/" />
             </Switch>
         </Router>
     );
