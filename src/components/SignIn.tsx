@@ -1,13 +1,9 @@
 import React, { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Avatar, Box, Button, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
-import { firebase } from '../providers/firebase';
-import AppHeader from './AppHeader';
-
-const signInWithGoogle = () => {
-    return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
-};
+import useAuth from '../hooks/useAuth';
 
 const Copyright: FC = () => {
     return (
@@ -41,10 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn: FC = () => {
     const classes = useStyles();
+    const history = useHistory();
+    const auth = useAuth();
 
+    const login = () => {
+        auth.signIn(() => {
+            history.replace('/dashboard');
+        });
+    };
     return (
         <>
-            <AppHeader />
             <Paper className={classes.root} elevation={3}>
                 <Avatar className={classes.avatar}>
                     <LockOutlined />
@@ -65,7 +67,7 @@ const SignIn: FC = () => {
                     fullWidth
                     variant="contained"
                     size="large"
-                    onClick={() => signInWithGoogle()}
+                    onClick={login}
                 >
                     Sign In
                 </Button>

@@ -1,8 +1,10 @@
-import React, { FC, useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
+import Spending from './components/Spending';
 import SignIn from './components/SignIn';
-import { AuthContext } from './providers/AuthProvider';
+import { CircularProgress } from '@material-ui/core';
+import useAuth from './hooks/useAuth';
 
 type PrivateRouteProps = {
     path: string;
@@ -11,19 +13,15 @@ type PrivateRouteProps = {
 };
 
 const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps): JSX.Element => {
-    const { authenticated, loadingAuthState } = useContext(AuthContext);
-    if (loadingAuthState) {
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        );
+    const auth = useAuth();
+    if (auth.loading) {
+        return <CircularProgress />;
     }
     return (
         <Route
             {...rest}
             render={(props: RouteComponentProps) =>
-                authenticated ? (
+                auth && auth.user ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to={{ pathname: '/sign-in', state: { prevPath: rest.path } }} />
@@ -33,31 +31,14 @@ const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps): JSX
     );
 };
 
-const AppRoutes = () => {
-    return (
-        <Switch>
-            <Route exact path="/dashboard" component={Dashboard} />
-        </Switch>
-    );
-};
-
-const AuthRoutes = () => {
-    return (
-        <Switch>
-            <Route exact path="/sign-in" component={SignIn} />
-        </Switch>
-    );
-};
-
 const Routes: FC = () => {
     return (
-        <Router>
-            <Switch>
-                <PrivateRoute exact path="/dashboard" component={AppRoutes} />
-                <Route path="/sign-in" component={AuthRoutes} />
-                <Redirect to="/dashboard" from="/" />
-            </Switch>
-        </Router>
+        <Switch>
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/spending" component={Spending} />
+            <Route path="/sign-in" component={SignIn} />
+            <Route path="/" component={SignIn} />
+        </Switch>
     );
 };
 

@@ -1,10 +1,11 @@
-import React, { useContext, FC } from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../providers/AuthProvider';
+import useAuth from '../hooks/useAuth';
+import { Link, useHistory } from 'react-router-dom';
 // import Navigation from './Navigation';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 const AppHeader: FC = () => {
     const classes = useStyles();
-    const { user, logout } = useContext(AuthContext);
+    const history = useHistory();
+    const auth = useAuth();
 
     return (
         <div className={classes.root}>
@@ -37,15 +39,34 @@ const AppHeader: FC = () => {
                             Personal finance for fun and profit!
                         </Typography>
                     </Typography>
-                    {user && (
+                    {auth && auth.user && (
                         <div>
-                            Welcome, {user.displayName}
-                            <Button onClick={logout}>Logout</Button>
+                            Welcome, {auth.user?.displayName}
+                            <Button
+                                onClick={() => {
+                                    auth.signOut(() => history.push('/'));
+                                }}
+                            >
+                                Sign out
+                            </Button>
                         </div>
                     )}
                 </Toolbar>
             </AppBar>
             {/* {current_user && <Navigation />} */}
+            <ul>
+                <ul>
+                    <li>
+                        <Link to="/">Public Page</Link>
+                    </li>
+                    <li>
+                        <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link to="/spending">Spending</Link>
+                    </li>
+                </ul>
+            </ul>
         </div>
     );
 };
