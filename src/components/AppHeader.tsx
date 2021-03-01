@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/useAuth';
 import { Link, useHistory } from 'react-router-dom';
-// import Navigation from './Navigation';
+import Navigation from './Navigation';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,17 +53,7 @@ const AppHeader: FC = () => {
                     )}
                 </Toolbar>
             </AppBar>
-            {/* {current_user && <Navigation />} */}
-            <ul>
-                <ul>
-                    <li>
-                        <Link to="/dashboard">Dashboard</Link>
-                    </li>
-                    <li>
-                        <Link to="/spending">Spending</Link>
-                    </li>
-                </ul>
-            </ul>
+            {auth && auth.user && <Navigation />}
         </div>
     );
 };
