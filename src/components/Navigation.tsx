@@ -18,7 +18,7 @@ const Navigation: FC = () => {
     return (
         <Paper className={classes.root}>
             <Tabs value={location.pathname} indicatorColor="primary" textColor="primary" centered>
-                <Tab label="Dashboard" component={Link} to="/" value="/" />
+                <Tab label="Dashboard" component={Link} to="/dashboard" value="/dashboard" />
                 <Tab label="Spending" component={Link} to="spending" value="/spending" />
                 <Tab label="Savings" component={Link} to="savings" value="/savings" />
             </Tabs>

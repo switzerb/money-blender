@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/useAuth';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Navigation from './Navigation';
 
 const useStyles = makeStyles((theme) => ({

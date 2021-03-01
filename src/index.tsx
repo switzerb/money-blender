@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider, DataProvider } from './providers';
+import theme from './theme';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 ReactDOM.render(
     <React.StrictMode>
         <AuthProvider>
             <DataProvider>
-                <App />
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
             </DataProvider>
         </AuthProvider>
     </React.StrictMode>,

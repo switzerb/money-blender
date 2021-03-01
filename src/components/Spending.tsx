@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Spending: FC = () => {
     const classes = useStyles();
-    const { user } = useAuth();
     const [open, setOpen] = React.useState<boolean>(false);
+    const { user } = useAuth();
     const { data: spending } = useCollection<Transaction>(`users/${user?.uid}/spendings`, {
         parseDates: ['timestamp'],
         orderBy: ['timestamp', 'desc'],
