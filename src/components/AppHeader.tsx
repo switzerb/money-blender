@@ -57,9 +57,6 @@ const AppHeader: FC = () => {
             <ul>
                 <ul>
                     <li>
-                        <Link to="/">Public Page</Link>
-                    </li>
-                    <li>
                         <Link to="/dashboard">Dashboard</Link>
                     </li>
                     <li>

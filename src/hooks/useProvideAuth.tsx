@@ -10,7 +10,16 @@ export default function useProvideAuth(): Auth {
         firebase
             .auth()
             .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-            .then(() => {
+            .then((credentials: firebase.auth.UserCredential) => {
+                if (!credentials || !credentials.user) {
+                    throw new Error('No valid credentials for this user');
+                }
+                setUser({
+                    displayName: credentials.user.displayName,
+                    email: credentials.user.email,
+                    photoURL: null,
+                    uid: credentials.user.uid,
+                });
                 cb();
             });
     };

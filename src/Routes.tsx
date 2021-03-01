@@ -34,10 +34,10 @@ const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps): JSX
 const Routes: FC = () => {
     return (
         <Switch>
-            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/" component={Dashboard} />
             <PrivateRoute path="/spending" component={Spending} />
             <Route path="/sign-in" component={SignIn} />
-            <Route path="/" component={SignIn} />
         </Switch>
     );
 };
