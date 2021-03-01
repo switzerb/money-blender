@@ -42,7 +42,7 @@ const SignIn: FC = () => {
 
     const login = () => {
         auth.signIn(() => {
-            history.push('/dashboard');
+            history.push('/');
         });
     };
     return (

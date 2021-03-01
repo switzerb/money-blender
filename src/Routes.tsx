@@ -5,7 +5,6 @@ import Spending from './components/Spending';
 import SignIn from './components/SignIn';
 import { CircularProgress } from '@material-ui/core';
 import useAuth from './hooks/useAuth';
-import Home from './components/Home';
 
 type PrivateRouteProps = {
     path: string;
@@ -34,12 +33,13 @@ const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps): JSX
 
 const Routes: FC = () => {
     return (
-        <Switch>
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/spending" component={Spending} />
-            <Route path="/sign-in" component={SignIn} />
-            <Route path="/" component={Home} />
-        </Switch>
+        <>
+            <Switch>
+                <Route path="/sign-in" component={SignIn} />
+                <PrivateRoute path="/" component={Dashboard} />
+                <PrivateRoute path="/spending" component={Spending} />
+            </Switch>
+        </>
     );
 };
 
