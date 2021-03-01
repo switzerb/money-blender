@@ -4,14 +4,16 @@ import { Delete } from '@material-ui/icons';
 import NumberFormat from 'react-number-format';
 import { Transaction } from '../types';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDocument } from '@nandorojo/swr-firestore';
+import { useAuth } from '../hooks';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     root: {},
     outflow: {
         color: 'red',
     },
     inflow: {},
-}));
+});
 
 type Props = {
     transaction: Transaction;
@@ -20,26 +22,12 @@ type Props = {
 
 const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
     const classes = useStyles();
-    // const { spendingsCollection, savingsCollection } = useContext(DataContext);
+    const { user } = useAuth();
+    const { deleteDocument } = useDocument(`users/${user?.uid}/${type}/${transaction.id}`);
 
-    const onTransactionDelete = (id: string): void => {
-        console.log(id);
-        if (type === 'spendings') {
-            // spendingsCollection
-            //     .doc(id)
-            //     .delete()
-            //     .catch((e) => {
-            //         console.log(e);
-            //     });
-        }
-        if (type === 'savings') {
-            // savingsCollection
-            //     .doc(id)
-            //     .delete()
-            //     .catch((e) => {
-            //         console.log(e);
-            //     });
-        }
+    const onTransactionDelete = (): void => {
+        if (deleteDocument === null) return;
+        deleteDocument()?.catch((e) => console.log(e));
     };
 
     return (
@@ -74,7 +62,7 @@ const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
             </TableCell>
             <TableCell>bucket here</TableCell>
             <TableCell>
-                <IconButton onClick={() => onTransactionDelete(transaction.id)}>
+                <IconButton onClick={onTransactionDelete}>
                     <Delete />
                 </IconButton>
             </TableCell>
