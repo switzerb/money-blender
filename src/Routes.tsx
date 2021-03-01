@@ -36,7 +36,7 @@ const Routes: FC = () => {
         <>
             <Switch>
                 <Route path="/sign-in" component={SignIn} />
-                <PrivateRoute path="/" component={Dashboard} />
+                <PrivateRoute exact path="/" component={Dashboard} />
                 <PrivateRoute path="/spending" component={Spending} />
             </Switch>
         </>
