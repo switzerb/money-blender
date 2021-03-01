@@ -6,6 +6,7 @@ import { Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import TransactionsTable from './TransactionsTable';
+import TransactionAdd from './TransactionAdd';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,11 +27,20 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const { user } = useAuth();
+    const [open, setOpen] = React.useState<boolean>(false);
     const { data: spending } = useCollection<Transaction>(`users/${user?.uid}/spendings`, {
         parseDates: ['timestamp'],
         orderBy: ['timestamp', 'desc'],
         listen: true,
     });
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     // useEffect(() => {
     //     if (spendingsCollection) {
@@ -59,11 +69,11 @@ const Spending: FC = () => {
             <Paper className={classes.paper}>
                 <Typography variant="h4">Transactions</Typography>
                 <TransactionsTable transactions={spending} type="spendings" />
-                <Fab color="secondary" aria-label="add" className={classes.fab}>
+                <Fab color="secondary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
                     <Add />
                 </Fab>
             </Paper>
-            {/* <TransactionAdd account="spendings" open={open} onClose={handleClose} /> */}
+            <TransactionAdd account="spendings" open={open} onClose={handleClose} />
         </div>
     );
 };
