@@ -1,2 +1,3 @@
 import useAuth from './useAuth';
-export { useAuth };
+import useUserCollection from './useUserCollection';
+export { useAuth, useUserCollection };

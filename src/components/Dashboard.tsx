@@ -9,6 +9,7 @@ import RecordAllowance from './RecordAllowance';
 import Billboard from './Billboard';
 // import Buckets from './Buckets';
 import FutureMoney from './FutureMoney';
+import Buckets from './Buckets';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,7 +41,7 @@ const Dashboard: FC = () => {
         <Grid container spacing={2} className={classes.root}>
             <Grid item xs={6}>
                 <Billboard />
-                {/* <Buckets /> */}
+                <Buckets />
             </Grid>
             <Grid item xs={6}>
                 <RecordAllowance spending={spending as Transaction[]} />
