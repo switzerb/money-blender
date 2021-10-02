@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useCollection } from '@nandorojo/swr-firestore';
-import { useAuth } from '../hooks';
-import { Transaction } from '../types';
+import { useUserCollection } from '../hooks';
+import { Bucket, Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import TransactionsTable from './TransactionsTable';
-import TransactionAdd from './TransactionAdd';
+import TransactionsTable from '../components/TransactionsTable';
+import TransactionAdd from '../components/TransactionAdd';
+import { selectTransactions } from './selector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,12 +27,10 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { user } = useAuth();
-    const { data: spending } = useCollection<Transaction>(`users/${user?.uid}/spendings`, {
-        parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
-        listen: true,
-    });
+    const { data: spendTransactions } = useUserCollection<Transaction>('spendings');
+    const { data: buckets } = useUserCollection<Bucket>('buckets');
+
+    const spending = selectTransactions(spendTransactions, buckets);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -41,26 +39,6 @@ const Spending: FC = () => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    // useEffect(() => {
-    //     if (spendingsCollection) {
-    //             docs.forEach((doc) => {
-    //                 if (bucketRef) {
-    //                     bucketRef
-    //                         .get()
-    //                         .then((bucket) => {
-    //                             detail.bucket = bucket.data().name;
-    //                             temp.push(detail);
-    //                             temp.sort((a, b) => b.date - a.date);
-    //                             dispatch({ type: 'getSpendings', payload: temp });
-    //                         })
-    //                         .catch((err) => console.error(err));
-    //                 } else {
-    //                 }
-    //             });
-    //         });
-    //     }
-    // }, [spendingsCollection]);
 
     if (!spending) return <div>Loading...</div>;
 

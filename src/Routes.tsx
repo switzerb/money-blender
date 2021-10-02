@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import Spending from './components/Spending';
+import Spending from './transactions/Spending';
 import SignIn from './components/SignIn';
 import { CircularProgress } from '@material-ui/core';
 import useAuth from './hooks/useAuth';

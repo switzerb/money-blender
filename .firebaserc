@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "money-blender-bf6f8"
+  },
+  "targets": {
+    "money-blender-bf6f8": {
+      "hosting": {
+        "money-blender": [
+          "money-blender-inger"
+        ]
+      }
+    }
+  }
+}
