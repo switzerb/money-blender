@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useUserCollection } from '../hooks';
-import { Bucket, Transaction } from '../types';
+import { Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import TransactionsTable from '../components/TransactionsTable';
 import TransactionAdd from '../components/TransactionAdd';
-import { selectTransactions } from './selector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,10 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: spendTransactions } = useUserCollection<Transaction>('spendings');
-    const { data: buckets } = useUserCollection<Bucket>('buckets');
-
-    const spending = selectTransactions(spendTransactions, buckets);
+    const { data: spending } = useUserCollection<Transaction>('spendings');
 
     const handleClickOpen = () => {
         setOpen(true);

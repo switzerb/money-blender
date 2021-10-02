@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-    Button,
-    TextField,
-    // FormControl,
-    // InputLabel,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-} from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
@@ -70,7 +61,7 @@ type Props = {
     account: string;
 };
 
-const TransactionAdd = ({ open, onClose, account }: Props) => {
+const TransactionAdd = ({ open, onClose, account }: Props): JSX.Element => {
     const classes = useStyles();
     const [description, setDescription] = useState('');
     const [type, setType] = useState('in');
@@ -97,8 +88,8 @@ const TransactionAdd = ({ open, onClose, account }: Props) => {
 
         const newTransaction = {
             description,
-            outflow: roundTo(outflow),
-            inflow: roundTo(inflow),
+            outflow: roundTo(outflow, 2),
+            inflow: roundTo(inflow, 2),
             timestamp: new Date(),
         };
         // if (bucket) {
