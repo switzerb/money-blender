@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import BucketAdd from './bucketAdd';
 import { Bucket } from '../types';
 import { useUserCollection } from '../hooks';
+import BucketAdd from './BucketAdd';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,9 +40,9 @@ const Buckets = (): JSX.Element => {
         setOpen(true);
     };
 
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     // const getBucketLeft = (id, budgeted) => {
     //     return budgeted - getBucketSpent(id);
@@ -80,7 +81,7 @@ const Buckets = (): JSX.Element => {
                         })}
                 </TableBody>
             </Table>
-            {/* <BucketAdd open={open} onClose={handleClose} /> */}
+            <BucketAdd open={open} onClose={handleClose} />
             <Fab color="secondary" variant="extended" onClick={handleClickOpen}>
                 <Add />
                 New Monthly Bucket

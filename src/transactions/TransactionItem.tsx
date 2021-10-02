@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IconButton, TableRow, TableCell } from '@material-ui/core';
+import { IconButton, TableCell, TableRow } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import NumberFormat from 'react-number-format';
 import { Transaction } from '../types';
@@ -24,6 +24,8 @@ const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
     const classes = useStyles();
     const { user } = useAuth();
     const { deleteDocument } = useDocument(`users/${user?.uid}/${type}/${transaction.id}`);
+
+    console.log(transaction);
 
     const onTransactionDelete = (): void => {
         if (deleteDocument === null) return;

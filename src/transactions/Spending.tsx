@@ -4,8 +4,8 @@ import { useUserCollection } from '../hooks';
 import { Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import TransactionsTable from '../components/TransactionsTable';
-import TransactionAdd from '../components/TransactionAdd';
+import TransactionsTable from './TransactionsTable';
+import TransactionAdd from './TransactionAdd';
 
 const useStyles = makeStyles((theme) => ({
     root: {
