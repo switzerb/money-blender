@@ -12,7 +12,7 @@
   },
   "hosting": {
     "site": "money-blender-bf6f8",
-    "public": "public",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
