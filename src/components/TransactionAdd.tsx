@@ -88,8 +88,8 @@ const TransactionAdd = ({ open, onClose, account }: Props): JSX.Element => {
 
         const newTransaction = {
             description,
-            outflow: roundTo(outflow),
-            inflow: roundTo(inflow),
+            outflow: roundTo(outflow, 2),
+            inflow: roundTo(inflow, 2),
             timestamp: new Date(),
         };
         // if (bucket) {
