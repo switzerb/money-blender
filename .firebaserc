@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "money-blender-bf6f8"
+    "default": "money-blender-bf6f8",
+    "prod": "money-blender-bf6f8"
   },
   "targets": {
     "money-blender-bf6f8": {
