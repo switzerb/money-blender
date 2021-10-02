@@ -58,8 +58,6 @@ const SignIn: FC = () => {
                     Welcome to The Money Blender!
                 </Typography>
                 <Typography variant="h6">
-                    Whole buncha nope right now
-
                     To log in, you will need to use a Google account. This is software made for kids so you can track
                     what you earn and what you spend.
                 </Typography>
