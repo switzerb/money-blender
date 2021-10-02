@@ -1,8 +1,9 @@
 import { useAuth } from './index';
-import { useCollection, Document } from '@nandorojo/swr-firestore';
+import { Document, useCollection } from '@nandorojo/swr-firestore';
 
 export default function useUserCollection<T extends Document>(
     collection: string,
+    // eslint-disable-next-line
 ): { data: Document<T>[] | null | undefined; error: any } {
     const { user } = useAuth();
     const currentUser = user?.uid || null;

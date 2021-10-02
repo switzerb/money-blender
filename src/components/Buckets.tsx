@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Fab, Table, TableRow, TableHead, TableCell, TableBody, Paper, Typography } from '@material-ui/core';
+import { Fab, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 // import BucketAdd from './bucketAdd';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Buckets = () => {
+const Buckets = (): JSX.Element => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const { data: buckets, error } = useUserCollection<Bucket>('buckets');

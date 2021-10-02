@@ -1,4 +1,4 @@
-import { Transaction, Bucket } from '../types';
+import { Transaction } from '../types';
 
 // const getBucketName = (bucketRef: any, buckets: Bucket[]): string => {
 //     const bucket = buckets.find((bucket) => bucket.id === bucketRef);
@@ -8,10 +8,7 @@ import { Transaction, Bucket } from '../types';
 //     return bucket.name;
 // };
 
-export const selectTransactions = (
-    spendTransactions?: Transaction[] | null,
-    buckets?: Bucket[] | null,
-): Transaction[] => {
+export const selectTransactions = (spendTransactions?: Transaction[] | null): Transaction[] => {
     if (!spendTransactions) {
         return [];
     }

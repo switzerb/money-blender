@@ -36,6 +36,8 @@ const Dashboard: FC = () => {
         orderBy: ['timestamp', 'desc'],
         listen: true,
     });
+    const saveTotal = savings || [];
+    const spendTotal = spending || [];
 
     return (
         <Grid container spacing={2} className={classes.root}>
@@ -45,7 +47,7 @@ const Dashboard: FC = () => {
             </Grid>
             <Grid item xs={6}>
                 <RecordAllowance spending={spending as Transaction[]} />
-                <FutureMoney savings={getSavings(savings)} spending={getSpending(spending)} />
+                <FutureMoney savings={getSavings(saveTotal)} spending={getSpending(spendTotal)} />
             </Grid>
         </Grid>
     );
