@@ -2,13 +2,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyBkAwlntHNFlt_bfl_2KCSV6Al7c63kTgY',
-    authDomain: 'bender-13a85.firebaseapp.com',
-    databaseURL: 'https://bender-13a85.firebaseio.com',
-    projectId: 'bender-13a85',
-    storageBucket: 'bender-13a85.appspot.com',
-    messagingSenderId: '445494690576',
-    appId: '1:445494690576:web:b0c65cca6520099b4f9b95',
+    apiKey: "AIzaSyCUSsqIBq-yP72a3mYyCAhkFbMoKBlTQbM",
+    authDomain: "money-blender-bf6f8.firebaseapp.com",
+    databaseURL: 'https://money-blender-bf6f8.firebaseio.com',
+    projectId: "money-blender-bf6f8",
+    storageBucket: "money-blender-bf6f8.appspot.com",
+    messagingSenderId: "372394001654",
+    appId: "1:372394001654:web:519360d605aeb968e8d8d7"
 };
 
 if (!firebase.apps.length) {

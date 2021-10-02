@@ -55,7 +55,7 @@ const SignIn: FC = () => {
                     Sign in
                 </Typography>
                 <Typography className={classes.text} variant="h3">
-                    Welcome to Bender!
+                    Welcome to The Money Blender!
                 </Typography>
                 <Typography variant="h6">
                     To log in, you will need to use a Google account. This is software made for kids so you can track
