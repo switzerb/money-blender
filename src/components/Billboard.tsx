@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, List, ListItem, ListItemText, ListItemSecondaryAction, Typography } from '@material-ui/core';
-import { getTotals, getSavings, getSpending } from '../utils';
+import { List, ListItem, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@material-ui/core';
+import { getSavings, getSpending, getTotals } from '../utils';
 import { useCollection } from '@nandorojo/swr-firestore';
 import { Transaction } from '../types';
 import { useAuth } from '../hooks';
@@ -32,22 +32,25 @@ const Billboard: FC = () => {
         listen: true,
     });
 
+    const saveTotal = savings || [];
+    const spendTotal = spending || [];
+
     return (
         <Paper className={classes.paper}>
             <Typography variant="h4">Total Money</Typography>
             <Typography variant="overline">On {new Date(Date.now()).toLocaleString()}</Typography>
-            <Typography variant="h1">${getTotals(savings, spending)}</Typography>
+            <Typography variant="h1">${getTotals(saveTotal, spendTotal)}</Typography>
             <List>
                 <ListItem>
                     <ListItemText primary="Savings Total" />
                     <ListItemSecondaryAction>
-                        <Typography variant="h4">${getSavings(savings)}</Typography>
+                        <Typography variant="h4">${getSavings(saveTotal)}</Typography>
                     </ListItemSecondaryAction>
                 </ListItem>
                 <ListItem>
                     <ListItemText primary="Spendable Total" />
                     <ListItemSecondaryAction>
-                        <Typography variant="h4">${getSpending(spending)}</Typography>
+                        <Typography variant="h4">${getSpending(spendTotal)}</Typography>
                     </ListItemSecondaryAction>
                 </ListItem>
             </List>
