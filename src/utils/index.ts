@@ -1,4 +1,4 @@
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 
 export const getSavings = (savings: Transaction[]): number => {
     return savings && savings.length > 0 ? savings.reduce((a, n) => a + n.inflow - n.outflow, 0) : 0;

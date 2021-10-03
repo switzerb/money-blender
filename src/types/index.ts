@@ -1,10 +1,9 @@
-import { Transaction } from './transactions';
 import { AppUser, Auth } from './auth';
 
 interface Bucket {
-    id: string;
+    id?: string;
     name: string;
-    budgeted: string;
+    budgeted: number;
 }
 
-export type { AppUser, Auth, Bucket, Transaction };
+export type { AppUser, Auth, Bucket };

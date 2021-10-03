@@ -1,16 +1,20 @@
 import { useAuth } from './index';
 import { Document, useCollection } from '@nandorojo/swr-firestore';
 
-export default function useUserCollection<T extends Document>(
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default function useUserCollection<T extends object>(
     collection: string,
-    // eslint-disable-next-line
-): { data: Document<T>[] | null | undefined; error: any } {
+): {
+    data: Document<T>[] | null | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any;
+    add: (data: T | T[]) => Promise<void> | null;
+} {
     const { user } = useAuth();
     const currentUser = user?.uid || null;
-    const { data, error } = useCollection<T>(`users/${currentUser}/${collection}`, {
+    const { data, error, add } = useCollection<T>(`users/${currentUser}/${collection}`, {
         parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
         listen: true,
     });
-    return { data, error };
+    return { data, error, add };
 }

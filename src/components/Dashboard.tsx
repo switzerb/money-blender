@@ -3,11 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { useAuth } from '../hooks';
 import { useCollection } from '@nandorojo/swr-firestore';
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 import { getSavings, getSpending } from '../utils';
 import RecordAllowance from './RecordAllowance';
 import Billboard from './Billboard';
-// import Buckets from './Buckets';
 import FutureMoney from './FutureMoney';
 import Buckets from './Buckets';
 

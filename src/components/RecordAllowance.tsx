@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 import { Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { latestAllowanceRecord } from '../utils';
-import { startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
+import { endOfWeek, isWithinInterval, startOfWeek } from 'date-fns';
 import { useCollection } from '@nandorojo/swr-firestore';
 import { useAuth } from '../hooks';
 

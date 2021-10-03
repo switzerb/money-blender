@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useUserCollection } from '../hooks';
-import { Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import TransactionsTable from '../components/TransactionsTable';
-import TransactionAdd from '../components/TransactionAdd';
+import TransactionsTable from './TransactionsTable';
+import TransactionAdd from './TransactionAdd';
+import { Transaction, TransactionType } from '../types/transactions';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: spending } = useUserCollection<Transaction>('spendings');
+    const { data: spending } = useTransactions<Transaction>(TransactionType.SPENDING);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -41,8 +41,8 @@ const Spending: FC = () => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h4">Transactions</Typography>
-                <TransactionsTable transactions={spending} type="spendings" />
+                <Typography variant="h4">Checking</Typography>
+                <TransactionsTable transactions={spending} type={TransactionType.SPENDING} />
                 <Fab color="secondary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
                     <Add />
                 </Fab>

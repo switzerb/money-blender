@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Fab, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
-// import BucketAdd from './bucketAdd';
 import { Bucket } from '../types';
+import BucketAdd from './BucketAdd';
 import { useUserCollection } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,14 +34,9 @@ const Buckets = (): JSX.Element => {
         throw new Error('There is a problem fetching data');
     }
 
-    const handleClickOpen = () => {
-        console.log(open);
-        setOpen(true);
-    };
+    const handleClickOpen = () => setOpen(true);
 
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
+    const handleClose = () => setOpen(false);
 
     // const getBucketLeft = (id, budgeted) => {
     //     return budgeted - getBucketSpent(id);
@@ -80,7 +75,7 @@ const Buckets = (): JSX.Element => {
                         })}
                 </TableBody>
             </Table>
-            {/* <BucketAdd open={open} onClose={handleClose} /> */}
+            <BucketAdd open={open} onClose={handleClose} />
             <Fab color="secondary" variant="extended" onClick={handleClickOpen}>
                 <Add />
                 New Monthly Bucket

@@ -1,31 +1,27 @@
-import { useUserCollection } from './index';
-import { Transaction } from '../types';
+import { useAuth } from './index';
+import { Document, useCollection } from '@nandorojo/swr-firestore';
+import { TransactionType } from '../types/transactions';
 
-export const useSpendTransactions = (): string => {
-    const { data: spendTransactions } = useUserCollection<Transaction>('spendings');
-    // const { data: buckets } = useUserCollection<Bucket>('buckets');
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default function useTransactions<Transaction extends object>(
+    type: TransactionType,
+): {
+    data: Document<Transaction>[] | null | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any;
+    add: (data: Transaction | Transaction[]) => Promise<void> | null;
+} {
+    const { user } = useAuth();
+    const currentUser = user?.uid || null;
 
-    if (!spendTransactions) {
-        return '';
-    }
-
-    console.log('hey');
-
-    //             docs.forEach((doc) => {
-    //                 if (bucketRef) {
-    //                     bucketRef
-    //                         .get()
-    //                         .then((bucket) => {
-    //                             detail.bucket = bucket.data().name;
-    //                             temp.push(detail);
-    //                             temp.sort((a, b) => b.date - a.date);
-    //                             dispatch({ type: 'getSpendings', payload: temp });
-    //                         })
-    //                         .catch((err) => console.error(err));
-    //                 } else {
-    //                 }
-    //             });
-    //         });
-
-    return 'hello';
-};
+    const transactionType = {
+        [TransactionType.SAVING]: 'savings',
+        [TransactionType.SPENDING]: 'spendings',
+    }[type];
+    const { data, error, add } = useCollection<Transaction>(`users/${currentUser}/${transactionType}`, {
+        parseDates: ['timestamp'],
+        orderBy: ['timestamp', 'desc'],
+        listen: true,
+    });
+    return { data, error, add };
+}

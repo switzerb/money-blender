@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Spending from './transactions/Spending';
 import SignIn from './components/SignIn';
 import { CircularProgress } from '@material-ui/core';
 import useAuth from './hooks/useAuth';
+import Saving from './transactions/Saving';
 
 type PrivateRouteProps = {
     path: string;
@@ -38,6 +39,7 @@ const Routes: FC = () => {
                 <Route path="/sign-in" component={SignIn} />
                 <PrivateRoute exact path="/" component={Dashboard} />
                 <PrivateRoute path="/spending" component={Spending} />
+                <PrivateRoute path="/savings" component={Saving} />
             </Switch>
         </>
     );
