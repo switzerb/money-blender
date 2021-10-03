@@ -4,7 +4,7 @@ import Add from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { Bucket } from '../types';
 import BucketAdd from './BucketAdd';
-import { useCollection } from '@nandorojo/swr-firestore';
+import { useUserCollection } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,20 +28,15 @@ const useStyles = makeStyles((theme) => ({
 const Buckets = (): JSX.Element => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const { data: buckets, error } = useCollection<Bucket>('buckets');
+    const { data: buckets, error } = useUserCollection<Bucket>('buckets');
 
     if (error) {
         throw new Error('There is a problem fetching data');
     }
 
-    const handleClickOpen = () => {
-        console.log(open);
-        setOpen(true);
-    };
+    const handleClickOpen = () => setOpen(true);
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const handleClose = () => setOpen(false);
 
     // const getBucketLeft = (id, budgeted) => {
     //     return budgeted - getBucketSpent(id);

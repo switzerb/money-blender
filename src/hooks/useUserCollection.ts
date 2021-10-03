@@ -4,7 +4,6 @@ import { Document, useCollection } from '@nandorojo/swr-firestore';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default function useUserCollection<T extends object>(
     collection: string,
-    // eslint-disable-next-line
 ): {
     data: Document<T>[] | null | undefined;
     error: any;
@@ -14,7 +13,6 @@ export default function useUserCollection<T extends object>(
     const currentUser = user?.uid || null;
     const { data, error, add } = useCollection<T>(`users/${currentUser}/${collection}`, {
         parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
         listen: true,
     });
     return { data, error, add };

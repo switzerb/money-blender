@@ -7,7 +7,6 @@ import { Transaction } from '../types';
 import { getSavings, getSpending } from '../utils';
 import RecordAllowance from './RecordAllowance';
 import Billboard from './Billboard';
-// import Buckets from './Buckets';
 import FutureMoney from './FutureMoney';
 import Buckets from './Buckets';
 
