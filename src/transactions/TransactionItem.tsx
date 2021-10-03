@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { IconButton, TableCell, TableRow } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import NumberFormat from 'react-number-format';
-import { Transaction } from '../types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDocument } from '@nandorojo/swr-firestore';
 import { useAuth } from '../hooks';
+import { Transaction, TransactionType } from '../types/transactions';
 
 const useStyles = makeStyles({
     root: {},
@@ -17,15 +17,19 @@ const useStyles = makeStyles({
 
 type Props = {
     transaction: Transaction;
-    type: string;
+    type: TransactionType;
 };
 
 const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
     const classes = useStyles();
     const { user } = useAuth();
-    const { deleteDocument } = useDocument(`users/${user?.uid}/${type}/${transaction.id}`);
 
-    console.log(transaction);
+    const transactionType = {
+        [TransactionType.SAVING]: 'savings',
+        [TransactionType.SPENDING]: 'spendings',
+    }[type];
+
+    const { deleteDocument } = useDocument(`users/${user?.uid}/${transactionType}/${transaction.id}`);
 
     const onTransactionDelete = (): void => {
         if (deleteDocument === null) return;

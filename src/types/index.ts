@@ -1,4 +1,3 @@
-import { Transaction } from './transactions';
 import { AppUser, Auth } from './auth';
 
 interface Bucket {
@@ -7,4 +6,4 @@ interface Bucket {
     budgeted: number;
 }
 
-export type { AppUser, Auth, Bucket, Transaction };
+export type { AppUser, Auth, Bucket };

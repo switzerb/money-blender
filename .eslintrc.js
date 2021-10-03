@@ -9,9 +9,7 @@ module.exports = {
         JSX: true,
     },
     extends: [
-        'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
-        'standard',
         'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     ],
     parser: '@typescript-eslint/parser',
@@ -29,12 +27,4 @@ module.exports = {
         '@typescript-eslint/no-use-before-define': ['error'],
         'no-debugger': 'warn',
     },
-    overrides: [
-        {
-            files: ['**/*.tsx'],
-            rules: {
-                'react/prop-types': 'off',
-            },
-        },
-    ],
 };

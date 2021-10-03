@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@material-ui/core';
 import { getSavings, getSpending, getTotals } from '../utils';
 import { useCollection } from '@nandorojo/swr-firestore';
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 import { useAuth } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({

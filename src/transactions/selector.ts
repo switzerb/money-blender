@@ -1,4 +1,4 @@
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 
 // const getBucketName = (bucketRef: any, buckets: Bucket[]): string => {
 //     const bucket = buckets.find((bucket) => bucket.id === bucketRef);

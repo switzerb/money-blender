@@ -1,5 +1,5 @@
 import { useUserCollection } from './index';
-import { Transaction } from '../types';
+import { Transaction } from '../types/transactions';
 
 export const useSpendTransactions = (): string => {
     const { data: spendTransactions } = useUserCollection<Transaction>('spendings');

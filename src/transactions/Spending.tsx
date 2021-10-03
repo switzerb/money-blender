@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useUserCollection } from '../hooks';
-import { Transaction } from '../types';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import TransactionsTable from './TransactionsTable';
 import TransactionAdd from './TransactionAdd';
+import { Transaction, TransactionType } from '../types/transactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,8 +41,8 @@ const Spending: FC = () => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h4">Transactions</Typography>
-                <TransactionsTable transactions={spending} type="spendings" />
+                <Typography variant="h4">Checking</Typography>
+                <TransactionsTable transactions={spending} type={TransactionType.SPENDING} />
                 <Fab color="secondary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
                     <Add />
                 </Fab>

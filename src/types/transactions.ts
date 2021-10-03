@@ -1,5 +1,10 @@
 import { DocumentReference } from '@firebase/firestore-types';
 
+export enum TransactionType {
+    SAVING = 'saving',
+    SPENDING = 'spending',
+}
+
 export interface Transaction {
     id: string;
     description: string;
