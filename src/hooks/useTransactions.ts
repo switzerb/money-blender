@@ -7,6 +7,7 @@ export default function useTransactions<Transaction extends object>(
     type: TransactionType,
 ): {
     data: Document<Transaction>[] | null | undefined;
+    // eslint-disable-next-line
     error: any;
     add: (data: Transaction | Transaction[]) => Promise<void> | null;
 } {
