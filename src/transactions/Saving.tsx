@@ -2,9 +2,9 @@ import * as React from 'react';
 import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
-import { useUserCollection } from '../hooks';
 import { Transaction, TransactionType } from '../types/transactions';
 import TransactionsTable from './TransactionsTable';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Saving: FC = () => {
     const classes = useStyles();
-    const { data: saving } = useUserCollection<Transaction>('savings');
+    const { data: saving } = useTransactions<Transaction>(TransactionType.SAVING);
 
     if (!saving) return <div>Loading...</div>;
 

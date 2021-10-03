@@ -12,5 +12,5 @@ export interface Transaction {
     outflow: number;
     bucketRef?: DocumentReference;
     bucketName?: string;
-    timestamp: string;
+    timestamp: Date;
 }

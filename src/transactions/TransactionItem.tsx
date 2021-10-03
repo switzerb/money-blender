@@ -36,6 +36,8 @@ const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
         deleteDocument()?.catch((e) => console.log(e));
     };
 
+    console.log(transaction.timestamp);
+
     return (
         <TableRow key={transaction.id}>
             <TableCell>{transaction.timestamp.toLocaleString()}</TableCell>
