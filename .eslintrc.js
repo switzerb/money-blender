@@ -24,8 +24,17 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'jest'],
     rules: {
+        'react/prop-types': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],
         'no-debugger': 'warn',
     },
+    overrides: [
+        {
+            files: ['**/*.tsx'],
+            rules: {
+                'react/prop-types': 'off',
+            },
+        },
+    ],
 };

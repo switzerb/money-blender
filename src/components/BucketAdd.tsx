@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { roundTo } from '../utils';
 import { useUserCollection } from '../hooks';
-import { Transaction } from '../types';
+import { Bucket } from '../types';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,7 +33,7 @@ const BucketAdd: React.FC<{
     const [errName, setErrName] = useState(false);
     const [errBudgeted, setErrBudgeted] = useState(false);
     const [budgeted, setBudgeted] = useState(0);
-    const { data: buckets, add: addBucket } = useUserCollection<Transaction>('buckets');
+    const { add: addBucket } = useUserCollection<Bucket>('buckets');
 
     const invalidName = (name: string) => {
         if (!name.trim().length) {
@@ -85,7 +85,7 @@ const BucketAdd: React.FC<{
                             label="How Much?"
                             error={errBudgeted}
                             helperText={errBudgeted ? 'Must be a number' : 'budget every four weeks'}
-                            onChange={(e) => setBudgeted(e.target.value)}
+                            onChange={(e) => setBudgeted(parseFloat(e.target.value))}
                             fullWidth
                             variant="outlined"
                             InputProps={{

@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Fab, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
-// import BucketAdd from './bucketAdd';
 import { Bucket } from '../types';
-import { useUserCollection } from '../hooks';
 import BucketAdd from './BucketAdd';
+import { useCollection } from '@nandorojo/swr-firestore';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const Buckets = (): JSX.Element => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const { data: buckets, error } = useUserCollection<Bucket>('buckets');
+    const { data: buckets, error } = useCollection<Bucket>('buckets');
 
     if (error) {
         throw new Error('There is a problem fetching data');
