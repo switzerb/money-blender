@@ -22,6 +22,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'jest'],
     rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
         'react/prop-types': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],

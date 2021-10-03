@@ -6,6 +6,7 @@ export default function useUserCollection<T extends object>(
     collection: string,
 ): {
     data: Document<T>[] | null | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any;
     add: (data: T | T[]) => Promise<void> | null;
 } {
