@@ -1,7 +1,6 @@
 import { useAuth } from './index';
 import { useCollection } from '@nandorojo/swr-firestore';
 import { AccountType } from '../types/transactions';
-import useStore from './useStore';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default function useTransactions<Transaction extends object>(
@@ -14,7 +13,6 @@ export default function useTransactions<Transaction extends object>(
 } {
     const { user } = useAuth();
     const currentUser = user?.uid || null;
-    const { buckets } = useStore();
 
     const transactionType = {
         [AccountType.SAVING]: 'savings',
