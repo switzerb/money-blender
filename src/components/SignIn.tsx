@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Avatar, Box, Button, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
@@ -38,14 +38,17 @@ const useStyles = makeStyles((theme) => ({
 const SignIn: FC = () => {
     const classes = useStyles();
     const history = useHistory();
-    const auth = useAuth();
+    const { signIn, authenticated } = useAuth();
 
     const login = () => {
-        auth.signIn(() => {
+        signIn(() => {
             history.push('/');
         });
     };
-    return (
+
+    return authenticated ? (
+        <Redirect to={{ pathname: '/' }} />
+    ) : (
         <>
             <Paper className={classes.root} elevation={3}>
                 <Avatar className={classes.avatar}>

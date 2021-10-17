@@ -9,6 +9,6 @@ export interface Auth {
     user: AppUser | null;
     signIn: (cb: () => void) => void;
     signOut: (cb: () => void) => void;
-    authenticated?: boolean;
+    authenticated: boolean;
     loading?: boolean;
 }
