@@ -1,6 +1,7 @@
 import { useAuth } from './index';
 import { useCollection } from '@nandorojo/swr-firestore';
-import { AccountType } from '../types/transactions';
+import { AccountType, Transaction as TransactionModel } from '../types/transactions';
+import useStore from './useStore';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default function useTransactions<Transaction extends object>(
@@ -13,6 +14,7 @@ export default function useTransactions<Transaction extends object>(
 } {
     const { user } = useAuth();
     const currentUser = user?.uid || null;
+    const { buckets } = useStore();
 
     const transactionType = {
         [AccountType.SAVING]: 'savings',
@@ -24,5 +26,12 @@ export default function useTransactions<Transaction extends object>(
         listen: true,
     });
 
-    return { data, error, add };
+    // TODO: figure out a way to not make this so stupid
+    const results = data?.map((transaction) => {
+        const t = (transaction as unknown) as TransactionModel;
+        const bucket = buckets.find((bucket) => bucket.id === t.bucketRef?.id);
+        return { ...transaction, bucketName: bucket ? bucket.name : '' };
+    });
+
+    return { data: results, error, add };
 }

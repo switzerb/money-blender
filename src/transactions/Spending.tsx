@@ -6,7 +6,7 @@ import TransactionsTable from './TransactionsTable';
 import TransactionAdd from './TransactionAdd';
 import { AccountType, Transaction } from '../types/transactions';
 import { selectTransactions } from './selector';
-import useTransactionsWithBuckets from '../hooks/useTransactionsWithBuckets';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: spending } = useTransactionsWithBuckets<Transaction>(AccountType.SPENDING);
+    const { data: spending } = useTransactions<Transaction>(AccountType.SPENDING);
 
     const transactions = selectTransactions(spending);
 

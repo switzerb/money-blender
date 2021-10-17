@@ -6,7 +6,7 @@ import { AccountType, Transaction } from '../types/transactions';
 import TransactionsTable from './TransactionsTable';
 import { Add } from '@material-ui/icons';
 import TransactionAdd from './TransactionAdd';
-import useTransactionsWithBuckets from '../hooks/useTransactionsWithBuckets';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Saving: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: saving } = useTransactionsWithBuckets<Transaction>(AccountType.SAVING);
+    const { data: saving } = useTransactions<Transaction>(AccountType.SAVING);
 
     const handleClickOpen = () => {
         setOpen(true);
