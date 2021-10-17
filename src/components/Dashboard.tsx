@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import { useAuth } from '../hooks';
-import { useCollection } from '@nandorojo/swr-firestore';
-import { Transaction } from '../types/transactions';
+import { AccountType, Transaction } from '../types/transactions';
 import { getSavings, getSpending } from '../utils';
 import RecordAllowance from './RecordAllowance';
 import Billboard from './Billboard';
 import FutureMoney from './FutureMoney';
 import Buckets from './Buckets';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,19 +22,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard: FC = () => {
     const classes = useStyles();
-    const { user } = useAuth();
-    const { data: spending } = useCollection<Transaction>(`users/${user?.uid}/spendings`, {
-        parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
-        listen: true,
-    });
+    const { data: spending } = useTransactions<Transaction>(AccountType.SPENDING);
+    const { data: saving } = useTransactions<Transaction>(AccountType.SAVING);
 
-    const { data: savings } = useCollection<Transaction>(`users/${user?.uid}/savings`, {
-        parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
-        listen: true,
-    });
-    const saveTotal = savings || [];
+    const saveTotal = saving || [];
     const spendTotal = spending || [];
 
     return (

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AccountType, Transaction } from '../types/transactions';
 import TransactionEdit from './TransactionEdit';
 import useTransaction from '../hooks/useTransaction';
+import firebase from 'firebase';
 
 const useStyles = makeStyles({
     root: {},
@@ -39,7 +40,10 @@ const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
         setOpen(true);
     };
 
-    const transactionDate = transaction.timestamp?.toDate().toLocaleDateString();
+    const transactionDate =
+        transaction.timestamp instanceof firebase.firestore.Timestamp
+            ? transaction.timestamp?.toDate().toLocaleDateString()
+            : null;
 
     return (
         <>
