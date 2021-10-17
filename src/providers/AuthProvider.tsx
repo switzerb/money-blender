@@ -1,5 +1,5 @@
 import React from 'react';
-import { Auth } from '../types/auth';
+import { Auth } from '../types';
 import useProvideAuth from '../hooks/useProvideAuth';
 
 type Props = {

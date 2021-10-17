@@ -6,6 +6,8 @@ import { AppUser, Auth } from '../types';
 export default function useProvideAuth(): Auth {
     const [user, setUser] = useState(null as AppUser | null);
 
+    const authenticated: boolean = user !== null;
+
     const signIn = (cb: () => void): void => {
         firebase
             .auth()
@@ -48,5 +50,5 @@ export default function useProvideAuth(): Auth {
         return () => unsubscribe();
     }, []);
 
-    return { user, signIn, signOut };
+    return { user, signIn, signOut, authenticated };
 }

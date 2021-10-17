@@ -20,8 +20,8 @@ export const latestAllowanceRecord = (spending: Transaction[]): number => {
           Math.max.apply(
               Math,
               allowance.map((item) => {
-                  const date = new Date(item.timestamp);
-                  return date.getSeconds() * 1000;
+                  const date = item.timestamp?.toDate();
+                  return date ? date.getSeconds() * 1000 : 0;
               }),
           )
         : 0;

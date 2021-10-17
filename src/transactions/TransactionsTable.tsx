@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Transaction, TransactionType } from '../types/transactions';
+import { AccountType, Transaction } from '../types/transactions';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TransactionItem from './TransactionItem';
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 
 type Props = {
     transactions: Transaction[];
-    type: TransactionType;
+    type: AccountType;
 };
 
 const TransactionsTable: FC<Props> = ({ transactions, type }: Props) => {
@@ -28,7 +28,7 @@ const TransactionsTable: FC<Props> = ({ transactions, type }: Props) => {
                         <TableCell>Earned</TableCell>
                         <TableCell>Spent</TableCell>
                         <TableCell>Bucket</TableCell>
-                        <TableCell>Actions</TableCell>
+                        <TableCell>{''}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

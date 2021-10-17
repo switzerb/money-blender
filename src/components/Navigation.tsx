@@ -15,9 +15,11 @@ const Navigation: FC = () => {
     const location = useLocation();
     const classes = useStyles();
 
+    const path = location.pathname === '/sign-in' ? '/' : location.pathname;
+
     return (
         <Paper className={classes.root}>
-            <Tabs value={location.pathname} indicatorColor="primary" textColor="primary" centered>
+            <Tabs value={path} indicatorColor="primary" textColor="primary" centered>
                 <Tab label="Dashboard" component={Link} to="/" value="/" />
                 <Tab label="Spending" component={Link} to="spending" value="/spending" />
                 <Tab label="Savings" component={Link} to="savings" value="/savings" />
