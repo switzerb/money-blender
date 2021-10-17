@@ -1,4 +1,4 @@
-import { Transaction } from '../types/transactions';
+import { Transaction, TransactionType } from '../types/transactions';
 
 // const getBucketName = (bucketRef: any, buckets: Bucket[]): string => {
 //     const bucket = buckets.find((bucket) => bucket.id === bucketRef);
@@ -12,14 +12,11 @@ export const selectTransactions = (spendTransactions?: Transaction[] | null): Tr
     if (!spendTransactions) {
         return [];
     }
-    // const result = spendTransactions.map((t) => {
-    //     let bucketName = '';
-    //     if (t.bucketRef && buckets) {
-    //         console.log(t.bucketRef.get());
-    //         bucketName = getBucketName(t.bucketRef, buckets);
-    //     }
-    //     return Object.assign({}, t, bucketName);
-    // });
-    // console.log(result);
-    return spendTransactions;
+    return spendTransactions.map((t) => {
+        return {
+            ...t,
+            timestamp: t.timestamp,
+            type: t.inflow > 0 ? TransactionType.MONEY_IN : TransactionType.MONEY_OUT,
+        };
+    });
 };

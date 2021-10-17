@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { IconButton, TableCell, TableRow } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { Delete, Edit } from '@material-ui/icons';
 import NumberFormat from 'react-number-format';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDocument } from '@nandorojo/swr-firestore';
-import { useAuth } from '../hooks';
-import { Transaction, TransactionType } from '../types/transactions';
+import { AccountType, Transaction } from '../types/transactions';
+import TransactionEdit from './TransactionEdit';
+import useTransaction from '../hooks/useTransaction';
 
 const useStyles = makeStyles({
     root: {},
@@ -17,62 +17,73 @@ const useStyles = makeStyles({
 
 type Props = {
     transaction: Transaction;
-    type: TransactionType;
+    type: AccountType;
 };
 
 const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
     const classes = useStyles();
-    const { user } = useAuth();
+    const [open, setOpen] = React.useState<boolean>(false);
 
-    const transactionType = {
-        [TransactionType.SAVING]: 'savings',
-        [TransactionType.SPENDING]: 'spendings',
-    }[type];
-
-    const { deleteDocument } = useDocument(`users/${user?.uid}/${transactionType}/${transaction.id}`);
-
-    const onTransactionDelete = (): void => {
-        if (deleteDocument === null) return;
-        deleteDocument()?.catch((e) => console.log(e));
+    const handleClose = () => {
+        setOpen(false);
     };
 
+    // TODO: deal with lack of transaction id
+    const { deleteDocument } = useTransaction(transaction.id || '', type);
+
+    const onTransactionDelete = (): void => {
+        deleteDocument();
+    };
+
+    const onTransactionEdit = (): void => {
+        setOpen(true);
+    };
+
+    const transactionDate = transaction.timestamp?.toDate().toLocaleDateString();
+
     return (
-        <TableRow key={transaction.id}>
-            <TableCell>{transaction.timestamp.toLocaleString()}</TableCell>
-            <TableCell component="th" scope="row">
-                {transaction.description}
-            </TableCell>
-            <TableCell className={classes.inflow}>
-                {transaction.inflow > 0 ? (
-                    <NumberFormat
-                        value={transaction.inflow}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'$'}
-                    />
-                ) : (
-                    ''
-                )}
-            </TableCell>
-            <TableCell className={classes.outflow}>
-                {transaction.outflow > 0 ? (
-                    <NumberFormat
-                        value={transaction.outflow}
-                        displayType={'text'}
-                        thousandSeparator={true}
-                        prefix={'- $'}
-                    />
-                ) : (
-                    ''
-                )}
-            </TableCell>
-            <TableCell>bucket here</TableCell>
-            <TableCell>
-                <IconButton onClick={onTransactionDelete}>
-                    <Delete />
-                </IconButton>
-            </TableCell>
-        </TableRow>
+        <>
+            <TableRow key={transaction.id}>
+                <TableCell>{transactionDate}</TableCell>
+                <TableCell component="th" scope="row">
+                    {transaction.description}
+                </TableCell>
+                <TableCell className={classes.inflow}>
+                    {transaction.inflow > 0 ? (
+                        <NumberFormat
+                            value={transaction.inflow}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'$'}
+                        />
+                    ) : (
+                        ''
+                    )}
+                </TableCell>
+                <TableCell className={classes.outflow}>
+                    {transaction.outflow > 0 ? (
+                        <NumberFormat
+                            value={transaction.outflow}
+                            displayType={'text'}
+                            thousandSeparator={true}
+                            prefix={'- $'}
+                        />
+                    ) : (
+                        ''
+                    )}
+                </TableCell>
+                <TableCell>bucket here</TableCell>
+                <TableCell>
+                    <IconButton onClick={onTransactionDelete}>
+                        <Delete />
+                    </IconButton>
+                    <IconButton onClick={onTransactionEdit}>
+                        <Edit />
+                    </IconButton>
+                </TableCell>
+            </TableRow>
+            <TransactionEdit account={type} transaction={transaction} open={open} onClose={handleClose} />
+        </>
     );
 };
 

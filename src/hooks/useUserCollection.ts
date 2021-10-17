@@ -13,7 +13,6 @@ export default function useUserCollection<T extends object>(
     const { user } = useAuth();
     const currentUser = user?.uid || null;
     const { data, error, add } = useCollection<T>(`users/${currentUser}/${collection}`, {
-        parseDates: ['timestamp'],
         listen: true,
     });
     return { data, error, add };

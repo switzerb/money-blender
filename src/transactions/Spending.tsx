@@ -4,8 +4,9 @@ import { Fab, Paper, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import TransactionsTable from './TransactionsTable';
 import TransactionAdd from './TransactionAdd';
-import { Transaction, TransactionType } from '../types/transactions';
+import { AccountType, Transaction } from '../types/transactions';
 import useTransactions from '../hooks/useTransactions';
+import { selectTransactions } from './selector';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: spending } = useTransactions<Transaction>(TransactionType.SPENDING);
+    const { data: spending } = useTransactions<Transaction>(AccountType.SPENDING);
+
+    const transactions = selectTransactions(spending);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -36,18 +39,18 @@ const Spending: FC = () => {
         setOpen(false);
     };
 
-    if (!spending) return <div>Loading...</div>;
+    if (!transactions) return <div>Loading...</div>;
 
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
                 <Typography variant="h4">Checking</Typography>
-                <TransactionsTable transactions={spending} type={TransactionType.SPENDING} />
+                <TransactionsTable transactions={transactions} type={AccountType.SPENDING} />
                 <Fab color="secondary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
                     <Add />
                 </Fab>
             </Paper>
-            <TransactionAdd account="spendings" open={open} onClose={handleClose} />
+            <TransactionAdd account={AccountType.SPENDING} open={open} onClose={handleClose} />
         </div>
     );
 };

@@ -1,10 +1,10 @@
 import { useAuth } from './index';
 import { Document, useCollection } from '@nandorojo/swr-firestore';
-import { TransactionType } from '../types/transactions';
+import { AccountType } from '../types/transactions';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default function useTransactions<Transaction extends object>(
-    type: TransactionType,
+    type: AccountType,
 ): {
     data: Document<Transaction>[] | null | undefined;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,13 +15,13 @@ export default function useTransactions<Transaction extends object>(
     const currentUser = user?.uid || null;
 
     const transactionType = {
-        [TransactionType.SAVING]: 'savings',
-        [TransactionType.SPENDING]: 'spendings',
+        [AccountType.SAVING]: 'savings',
+        [AccountType.SPENDING]: 'spendings',
     }[type];
     const { data, error, add } = useCollection<Transaction>(`users/${currentUser}/${transactionType}`, {
-        parseDates: ['timestamp'],
         orderBy: ['timestamp', 'desc'],
         listen: true,
     });
+
     return { data, error, add };
 }

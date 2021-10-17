@@ -1,16 +1,26 @@
-import { DocumentReference } from '@firebase/firestore-types';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
-export enum TransactionType {
+export type Timestamp = firebase.firestore.Timestamp;
+export type DocumentReference = firebase.firestore.DocumentReference;
+
+export enum AccountType {
     SAVING = 'saving',
     SPENDING = 'spending',
 }
 
+export enum TransactionType {
+    MONEY_IN = 'in',
+    MONEY_OUT = 'out',
+}
+
 export interface Transaction {
-    id: string;
+    id?: string;
     description: string;
     inflow: number;
     outflow: number;
+    type?: TransactionType;
     bucketRef?: DocumentReference;
     bucketName?: string;
-    timestamp: Date;
+    timestamp?: Timestamp;
 }
