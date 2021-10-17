@@ -5,9 +5,8 @@ import { Add } from '@material-ui/icons';
 import TransactionsTable from './TransactionsTable';
 import TransactionAdd from './TransactionAdd';
 import { AccountType, Transaction } from '../types/transactions';
-import useTransactions from '../hooks/useTransactions';
 import { selectTransactions } from './selector';
-import useStore from '../hooks/useStore';
+import useTransactionsWithBuckets from '../hooks/useTransactionsWithBuckets';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,11 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Spending: FC = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState<boolean>(false);
-    const { data: spending } = useTransactions<Transaction>(AccountType.SPENDING);
-
-    const store = useStore();
-
-    console.log(store);
+    const { data: spending } = useTransactionsWithBuckets<Transaction>(AccountType.SPENDING);
 
     const transactions = selectTransactions(spending);
 

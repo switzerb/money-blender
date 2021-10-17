@@ -1,45 +1,28 @@
 import * as React from 'react';
-import { useReducer } from 'react';
 import { Store } from '../types/store';
+import { useCollection } from '@nandorojo/swr-firestore';
+import { Bucket } from '../types';
+import { useAuth } from '../hooks';
 
 type Props = {
     children: React.ReactNode;
-};
-
-type Action = { type: 'request' } | { type: 'success'; results: Store } | { type: 'failure'; error: string };
-
-type State = {
-    data: Store;
-    isLoading: boolean;
-    error?: string;
-};
-
-const reducer = (state: State, action: Action): State => {
-    switch (action.type) {
-        case 'request':
-            return { ...state, isLoading: true };
-        case 'success':
-            return { ...state, isLoading: false, data: action.results };
-        case 'failure':
-            return { ...state, isLoading: false, error: action.error };
-    }
 };
 
 const defaultStore = {
     buckets: [],
 };
 
-const initialState = {
-    data: defaultStore,
-    isLoading: false,
-};
-
 const StoreContext = React.createContext<Store>(defaultStore);
 
 const StoreProvider: React.FC<Props> = ({ children }: Props) => {
-    const [{ data }] = useReducer(reducer, initialState);
+    const { user } = useAuth();
+    const currentUser = user?.uid || null;
 
-    return <StoreContext.Provider value={{ buckets: data.buckets }}>{children}</StoreContext.Provider>;
+    const { data: buckets } = useCollection<Bucket>(`users/${currentUser}/buckets`, {
+        listen: true,
+    });
+
+    return <StoreContext.Provider value={{ buckets: buckets || [] }}>{children}</StoreContext.Provider>;
 };
 
 export { StoreContext, StoreProvider };

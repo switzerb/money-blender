@@ -76,7 +76,7 @@ const TransactionItem: FC<Props> = ({ transaction, type }: Props) => {
                         ''
                     )}
                 </TableCell>
-                <TableCell>bucket here</TableCell>
+                <TableCell>{transaction.bucketName}</TableCell>
                 <TableCell>
                     <IconButton onClick={onTransactionDelete}>
                         <Delete />
