@@ -1,10 +1,19 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Transaction, TransactionType } from '../types/transactions';
-import { Button, TextField } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import firebase from 'firebase';
+import { useAuth, useUserCollection } from '../hooks';
+import { Bucket } from '../types';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    form: {
+        width: '100%',
+    },
+}));
 
 interface NumberFormatCustomProps extends NumberFormatProps {
     inputRef: (instance: NumberFormat | null) => void;
@@ -43,34 +52,42 @@ type Props = {
 };
 
 const TransactionForm = ({ transaction, onSave }: Props): JSX.Element => {
+    const classes = useStyles();
     const [description, setDescription] = useState(transaction?.description || '');
     const [type, setType] = useState(transaction?.type || TransactionType.MONEY_IN);
-    // const [bucket, setBucket] = React.useState(null);
+    const [bucket, setBucket] = React.useState('');
     const [inflow, setInflow] = useState(transaction?.inflow || 0);
     const [outflow, setOutflow] = useState(transaction?.outflow || 0);
+    const { data: buckets } = useUserCollection<Bucket>('buckets');
+    const { user } = useAuth();
+    const currentUser = user?.uid || null;
 
     const handleChangeType = (e: React.SyntheticEvent, newType: TransactionType) => {
         setType(newType);
         if (type === TransactionType.MONEY_IN) {
-            // setBucket('');
+            setBucket('');
         }
+    };
+
+    const handleSetBucket = (event: React.ChangeEvent<{ value: string | unknown }>) => {
+        setBucket(event.target.value as string);
     };
 
     const handleSave = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        // if (!description.trim().length) return;
-        //
+        if (!description.trim().length) return;
         // TODO: Form validation and messaging
-        //
-        const newTransaction = {
+
+        const newTransaction: Transaction = {
             description,
             outflow: outflow,
             inflow: inflow,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
         };
-        // // if (bucket) {
-        // //     newTransaction.bucketRef = bucketsCollection.doc(bucket);
-        // // }
+
+        if (bucket) {
+            newTransaction.bucketRef = firebase.firestore().doc(`users/${currentUser}/buckets/${bucket}`);
+        }
         onSave(newTransaction);
     };
 
@@ -109,16 +126,14 @@ const TransactionForm = ({ transaction, onSave }: Props): JSX.Element => {
                             inputComponent: NumberFormatCustom as never,
                         }}
                     />
-                    {/* <FormControl margin="normal" className={classes.form} variant="outlined"> */}
-                    {/*    <InputLabel id="demo-simple-select-label">Bucket</InputLabel> */}
-                    {/*    <Select fullWidth value={bucket} onChange={(e) => setBucket(e.target.value)}> */}
-                    {/*        { */}
-                    {/*            if(buckets) { */}
-                    {/*                buckets.map((bucket) => (<MenuItem value={bucket.id}>{bucket.name}</MenuItem>)) */}
-                    {/*            } */}
-                    {/*        } */}
-                    {/*    </Select> */}
-                    {/* </FormControl> */}
+                    <FormControl margin="normal" variant="outlined" className={classes.form}>
+                        <InputLabel id="demo-simple-select-label">Bucket</InputLabel>
+                        <Select fullWidth value={bucket} onChange={handleSetBucket}>
+                            {buckets?.map((bucket) => (
+                                <MenuItem value={bucket.id}>{bucket.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </>
             )}
             <TextField

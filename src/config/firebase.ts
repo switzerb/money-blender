@@ -15,8 +15,8 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-// const db = firebase.firestore();
-//
+const db = firebase.firestore();
+
 // db.enablePersistence({ synchronizeTabs: true }).catch((err: Error) => console.error(err));
 
-export { firebaseConfig, firebase };
+export { db, firebaseConfig, firebase };
