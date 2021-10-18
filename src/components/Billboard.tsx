@@ -2,9 +2,8 @@ import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@material-ui/core';
 import { getSavings, getSpending, getTotals } from '../utils';
-import { useCollection } from '@nandorojo/swr-firestore';
-import { Transaction } from '../types/transactions';
-import { useAuth } from '../hooks';
+import { AccountType, Transaction } from '../types/transactions';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,18 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Billboard: FC = () => {
     const classes = useStyles();
-    const { user } = useAuth();
-    const { data: spending } = useCollection<Transaction>(`users/${user?.uid}/spendings`, {
-        parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
-        listen: true,
-    });
-
-    const { data: savings } = useCollection<Transaction>(`users/${user?.uid}/savings`, {
-        parseDates: ['timestamp'],
-        orderBy: ['timestamp', 'desc'],
-        listen: true,
-    });
+    const { data: spending } = useTransactions<Transaction>(AccountType.SPENDING);
+    const { data: savings } = useTransactions<Transaction>(AccountType.SAVING);
 
     const saveTotal = savings || [];
     const spendTotal = spending || [];
