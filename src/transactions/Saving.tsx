@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Fab, Paper, Typography } from '@material-ui/core';
 import { AccountType, Transaction } from '../types/transactions';
 import TransactionsTable from './TransactionsTable';
-import useTransactions from '../hooks/useTransactions';
 import { Add } from '@material-ui/icons';
 import TransactionAdd from './TransactionAdd';
+import useTransactions from '../hooks/useTransactions';
 
 const useStyles = makeStyles((theme) => ({
     root: {

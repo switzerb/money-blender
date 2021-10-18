@@ -38,6 +38,7 @@ const TransactionEdit = ({ account, transaction, open, onClose }: Props): JSX.El
             description: transaction.description,
             inflow: transaction.inflow,
             outflow: transaction.outflow,
+            bucketRef: transaction.bucketRef,
         });
         onClose();
     };

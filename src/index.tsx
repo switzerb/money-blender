@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider, DataProvider } from './providers';
+import { AuthProvider, DataProvider, StoreProvider } from './providers';
 import theme from './theme';
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -11,9 +11,11 @@ ReactDOM.render(
     <React.StrictMode>
         <AuthProvider>
             <DataProvider>
-                <ThemeProvider theme={theme}>
-                    <App />
-                </ThemeProvider>
+                <StoreProvider>
+                    <ThemeProvider theme={theme}>
+                        <App />
+                    </ThemeProvider>
+                </StoreProvider>
             </DataProvider>
         </AuthProvider>
     </React.StrictMode>,
