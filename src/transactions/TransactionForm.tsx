@@ -9,11 +9,11 @@ import { useAuth, useUserCollection } from '../hooks';
 import { Bucket } from '../types';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     form: {
         width: '100%',
     },
-}));
+});
 
 interface NumberFormatCustomProps extends NumberFormatProps {
     inputRef: (instance: NumberFormat | null) => void;
