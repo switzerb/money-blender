@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AccountType, Transaction } from '../types/transactions';
 import TransactionEdit from './TransactionEdit';
 import useTransaction from '../hooks/useTransaction';
-import firebase from 'firebase';
+import firebase from 'firebase/compat/app';
 
 const useStyles = makeStyles({
     root: {},

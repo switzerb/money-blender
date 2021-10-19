@@ -1,5 +1,5 @@
 // fuego.ts
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 
 type Config = Parameters<typeof firebase.initializeApp>[0];
 
@@ -8,6 +8,7 @@ export class Fuego {
     public auth: typeof firebase.auth;
     public functions: typeof firebase.functions;
     public storage: typeof firebase.storage;
+
     constructor(config: Config) {
         this.db = !firebase.apps.length ? firebase.initializeApp(config).firestore() : firebase.app().firestore();
         this.auth = firebase.auth;

@@ -4,7 +4,7 @@ import { Transaction, TransactionType } from '../types/transactions';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
-import firebase from 'firebase';
+import firebase from 'firebase/compat/app';
 import { useAuth, useUserCollection } from '../hooks';
 import { Bucket } from '../types';
 import { makeStyles } from '@material-ui/core/styles';

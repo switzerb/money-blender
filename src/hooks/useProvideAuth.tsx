@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { firebase } from '../config/firebase';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import { AppUser, Auth } from '../types';
 
 export default function useProvideAuth(): Auth {

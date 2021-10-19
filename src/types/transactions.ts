@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
 
 export type Timestamp = firebase.firestore.Timestamp;
